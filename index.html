@@ -18,7 +18,17 @@ body[data-theme="paper"]{--bg:#f3f3ec;--card:#fffefb;--card2:#edf0e9;--border:#c
 .lesson-layout{display:grid;grid-template-columns:minmax(220px,290px) minmax(0,1fr);gap:17px}
 .lesson-list{max-height:850px;overflow:auto}.lesson-unit{margin-bottom:16px;padding-bottom:11px;border-bottom:1px solid var(--border)}.lesson-unit:last-child{border:0}
 .unit-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}.lesson-unit p{margin:7px 0 12px}
-.lesson-options{display:flex;flex-direction:column;gap:6px}.lesson-select{text-align:left;border:1px solid transparent;background:transparent;color:var(--muted);font-weight:650;font-size:12px;padding:8px 10px;border-radius:9px}.lesson-select:hover{background:var(--card2);color:var(--text)}.lesson-select.selected{border-color:var(--accent);background:var(--card2);color:var(--accent)}.lesson-select span{font-size:15px;display:inline-block;min-width:19px}
+.lesson-options{display:flex;flex-direction:column;gap:6px}.lesson-select{text-align:left;border:1px solid transparent;background:transparent;color:var(--muted);font-weight:650;font-size:12px;padding:8px 10px;border-radius:9px}.lesson-select:hover{background:var(--card2);color:var(--text)}.lesson-select.selected{border-color:var(--accent);background:var(--card2);color:var(--accent)}.lesson-select{display:flex;align-items:center;justify-content:space-between;gap:7px;min-height:41px}
+.lesson-select .lesson-name{font-size:12px;min-width:0;flex:1;line-height:1.35}
+.lesson-stars{display:inline-flex;align-items:center;gap:5px;flex-shrink:0;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lesson-stars .star-symbols{font-size:17px;letter-spacing:1px;color:var(--accent);font-weight:850}
+.lesson-stars .stars-count{font-size:11px;font-weight:800;color:var(--muted)}
+.lesson-star-guide{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:10px;align-items:center}
+.lesson-star-guide span{white-space:nowrap}
+.lesson-stars-large{margin:16px 0 5px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.lesson-stars-large .star-symbols{font-size:39px;letter-spacing:5px;line-height:1.2;filter:drop-shadow(0 2px 5px color-mix(in srgb,var(--accent) 25%,transparent))}
+.lesson-stars-large .stars-count{font-size:17px;font-weight:850;color:var(--text)}
+.lesson-unit .unit-heading .small{white-space:nowrap}
 .lesson-work{min-width:0}.lesson-intro{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.lesson-intro .tag{white-space:normal}
 .lesson-sample{border:1px solid var(--border);border-radius:11px;padding:14px;color:var(--muted);line-height:1.65;background:var(--card2);font-family:var(--font)}
 .keyboard-guide{position:relative;padding:16px;background:color-mix(in srgb,var(--card2) 90%,var(--accent));border:1px solid var(--border);border-radius:16px;margin:13px 0 19px;overflow-x:auto}
@@ -93,12 +103,13 @@ body[data-theme="paper"]{--bg:#f3f3ec;--card:#fffefb;--card2:#edf0e9;--border:#c
  </section>
  <section id="lessonsView" class="view" aria-label="Guided keyboarding lessons">
   <section class="hero panel"><div><div class="hero-label">Guided skill path</div><h2>Build good habits, one key at a time.</h2><p>Start with home-row positions, then reach the upper and lower rows, practice words and punctuation, and finish with real-world writing. Watch your companion's hands highlight which finger should reach the next key.</p></div><span class="tag">Accuracy before speed</span></section>
-  <section class="panel cardpad"><div class="card-top"><div><h2>Choose your grade</h2><p class="small">Lessons adjust practice length for developing, intermediate, and advanced typists.</p></div><div class="field"><label for="lessonGrade" class="small">Grade</label><select id="lessonGrade" class="selectable" aria-label="Lesson grade"><option value="1">Grade 1</option><option value="2">Grade 2</option><option value="3">Grade 3</option><option value="4">Grade 4</option><option value="5">Grade 5</option><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></div></div><p id="lessonGradeInfo" class="small"></p><div class="notice">Practice any lesson. You earn mastery when you complete it with at least 95% keystroke accuracy. Backspace corrections are allowed; the original mistyped keystroke still counts toward accuracy.</div></section>
+  <section class="panel cardpad"><div class="card-top"><div><h2>Choose your grade</h2><p class="small">Lessons adjust practice length for developing, intermediate, and advanced typists.</p></div><div class="field"><label for="lessonGrade" class="small">Grade</label><select id="lessonGrade" class="selectable" aria-label="Lesson grade"><option value="1">Grade 1</option><option value="2">Grade 2</option><option value="3">Grade 3</option><option value="4">Grade 4</option><option value="5">Grade 5</option><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option></select></div></div><p id="lessonGradeInfo" class="small"></p><div class="notice">Complete the full passage with at least <strong>75% keystroke accuracy</strong> to earn your first star. Earn more stars by improving accuracy when you replay a lesson. Your highest star rating is saved separately for each grade. Backspace works, but earlier mistyped keystrokes still count.
+  <div class="lesson-star-guide"><span>★☆☆ <strong>75–84.9%</strong></span><span>★★☆ <strong>85–94.9%</strong></span><span>★★★ <strong>95–100%</strong></span></div></div></section>
   <div class="lesson-layout">
-    <section class="panel cardpad lesson-list" aria-label="Lessons and units"><div class="card-top"><h2>Skill units</h2><span class="pill" id="lessonMasteredTotal">0 mastered</span></div><div id="lessonLibrary" style="margin-top:15px"></div></section>
+    <section class="panel cardpad lesson-list" aria-label="Lessons and units"><div class="card-top"><h2>Skill units</h2><span class="pill" id="lessonMasteredTotal">0 / 111 stars</span></div><div id="lessonLibrary" style="margin-top:15px"></div></section>
     <div class="lesson-work" id="lessonArea">
       <section class="panel cardpad">
-        <div class="lesson-intro"><div><div class="hero-label" id="lessonFocus">Focus</div><h2 id="lessonTitle">Find F and J</h2></div><span class="tag" id="lessonState">Choose a lesson</span></div>
+        <div class="lesson-intro"><div><div class="hero-label" id="lessonFocus">Focus</div><h2 id="lessonTitle">Find F and J</h2></div><span class="tag" id="lessonState">0 / 3 stars</span></div>
         <p class="help" id="lessonHint">Find the raised marks on F and J.</p>
         <div class="keyboard-guide"><div class="keyboard-note"><strong id="fingerHint">Find the keys with your index fingers</strong><span id="handLabel">Companion hand positioning</span></div><div class="keyboard-stage"><div id="keyboardRows" class="keyboard-rows" aria-label="Keyboard and recommended next key"></div><div id="ghostHands" class="ghost-hands" aria-hidden="true"></div></div><div class="keyboard-note"><span>Home row: A S D F · J K L ;</span><span>Suggested fingers only; the website cannot detect your physical hand position</span></div></div>
         <section id="lessonSetup"><div class="label-line">Sample passage</div><div class="lesson-sample" id="lessonSample"></div><div class="action-row"><button type="button" class="primary" id="beginLesson">Begin this lesson →</button></div></section>
@@ -118,7 +129,7 @@ body[data-theme="paper"]{--bg:#f3f3ec;--card:#fffefb;--card2:#edf0e9;--border:#c
   <section class="panel cardpad"><div class="card-top"><h2>Finished lesson history</h2><button class="secondary" id="exportLessonCsv" type="button">Export lesson CSV ↓</button></div><div id="lessonHistory" style="margin-top:13px"></div></section>
  </section>
  <section id="awardsView" class="view" aria-label="Awards and daily practice goals">
-  <section class="hero panel"><div><div class="hero-label">Practice milestones</div><h2>Your progress deserves recognition.</h2><p>Earn new badges through real typing: total characters, words, active minutes, lesson mastery, and completed daily goals. All milestones are stored with your local player.</p></div><span class="tag">No account needed</span></section>
+  <section class="hero panel"><div><div class="hero-label">Practice milestones</div><h2>Your progress deserves recognition.</h2><p>Earn new badges through real typing: total characters, words, active minutes, completed lessons, and completed daily goals. All milestones are stored with your local player.</p></div><span class="tag">No account needed</span></section>
   <section class="panel cardpad"><h2>Set your daily goal</h2><p class="small">Only time close to real keypresses counts. Extended idle pauses, browsing time, and time spent on a completed lesson do not count. Finish the lesson or test to save its activity.</p><div class="field" style="max-width:270px"><label for="goalSelect">Active typing minutes per day</label><select id="goalSelect" class="selectable"><option value="5">5 minutes</option><option value="10">10 minutes</option><option value="15">15 minutes</option><option value="20">20 minutes</option></select></div><p class="small" id="dailyGoalFeedback"></p></section>
   <section class="panel cardpad"><div class="card-top"><h2>Milestone badges</h2><span class="tag" id="awardSummary">Your achievement board</span></div><div class="awards-grid" id="awardGrid" style="margin-top:15px"></div></section>
  </section>
@@ -146,7 +157,7 @@ body[data-theme="paper"]{--bg:#f3f3ec;--card:#fffefb;--card2:#edf0e9;--border:#c
 <div class="result-overlay" id="resultOverlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle"><div class="result-card"><div class="result-heading"><div><div class="hero-label">Session complete</div><h2 id="resultTitle">Your typing results</h2><div class="small" id="resultMode"></div></div><div class="sprite-wrap" id="resultSprite" aria-hidden="true"></div></div><div class="stats-grid" id="resultStats"></div><div class="result-xp" id="resultXp"></div><p class="small" id="resultMessage"></p><div class="action-row"><button class="primary" id="resultAgain">Try again</button><button class="secondary" id="resultProgress">View progress</button><button class="secondary" id="resultClose">Close</button></div></div></div>
 <script>
 'use strict';
-/* A.S.C.E.N.D.A.N.T. Typing Lab: self-contained; local storage only. */
+/* KeyQuest Typing Evolution: self-contained; local storage only. */
 const $=id=>document.getElementById(id);
 const ESC=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const STORAGE_KEY='ascendant_typing_lab_v1';
@@ -366,8 +377,8 @@ const AWARDS=[
  ...[25,100,250,500,1000,2500,5000,10000,25000].map(v=>({id:'w'+v,kind:'words',threshold:v,name:`${v.toLocaleString()} Words`,detail:`Complete ${v.toLocaleString()} words in typing activities.`})),
  ...[5,15,30,60,120,300].map(v=>({id:'m'+v,kind:'minutes',threshold:v,name:`${v} Active Minutes`,detail:`Accumulate ${v} minutes of active typing.`})),
  {id:'first-lesson',kind:'special',name:'First Lesson',detail:'Complete your first guided lesson.'},
- {id:'first-mastery',kind:'special',name:'Accuracy Star',detail:'Master a lesson with at least 95% keystroke accuracy.'},
- {id:'five-masteries',kind:'special',name:'Skill Builder',detail:'Master five different guided lessons.'},
+ {id:'first-mastery',kind:'special',name:'First Star',detail:'Complete a guided lesson with at least 75% keystroke accuracy.'},
+ {id:'five-masteries',kind:'special',name:'Skill Builder',detail:'Earn at least one star in five different guided lessons.'},
  {id:'daily-goal',kind:'special',name:'Daily Champion',detail:'Reach your active typing goal in a single day.'}
 ];
 const QWERTY_ROWS=[['1','2','3','4','5','6','7','8','9','0','-','='],['q','w','e','r','t','y','u','i','o','p','[',']','\\'],['a','s','d','f','g','h','j','k','l',';','\''],['z','x','c','v','b','n','m',',','.','/']];
@@ -382,14 +393,42 @@ function fingerFor(char){if(!char)return null;if(char===' ')return {id:'thumb',l
 function gradeBand(grade){return LESSON_GRADE_BANDS.find(x=>grade>=x.min&&grade<=x.max)||LESSON_GRADE_BANDS[2]}
 function lessonText(lesson,grade){const band=gradeBand(Number(grade)),base=lesson.text,arr=[];let chars=0;while(chars<band.length){arr.push(base);chars+=base.length+1}return arr.join(' ').slice(0,chars-1)}
 function todayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+// The same lesson is available in four grade bands; star ratings remain tied to the exact grade selected.
+// Older lesson attempts are imported once, without clearing test results, XP or earned badges.
+function starsForAccuracy(accuracy,finishedCorrectly=true){
+ const a=Number(accuracy);
+ if(!finishedCorrectly||!Number.isFinite(a))return 0;
+ return a>=95?3:a>=85?2:a>=75?1:0;
+}
+function lessonRatingKey(lessonId,grade){return lessonId+'|'+String(Number(grade)||5)}
+function lessonRating(l,lessonId,grade){return Math.max(0,Math.min(3,Number(l.lessonRatings?.[lessonRatingKey(lessonId,grade)])||0))}
+function starDisplay(stars,large=false){
+ const n=Math.max(0,Math.min(3,Math.round(Number(stars)||0)));
+ return `<span class="lesson-stars ${large?'lesson-stars-large':''}" aria-label="${n} out of 3 stars"><span class="star-symbols" aria-hidden="true">${'★'.repeat(n)}${'☆'.repeat(3-n)}</span><span class="stars-count">${n} / 3</span></span>`;
+}
 function learningData(p=profile()){
  if(!p.learning||typeof p.learning!=='object')p.learning={};const l=p.learning;
  if(!l.totals){l.totals={chars:p.records.reduce((v,r)=>v+(r.typedChars||0),0),words:p.records.reduce((v,r)=>v+(r.wordsTyped||0),0),activeMs:0,lessons:0,tests:p.records.length};}
  if(!l.days)l.days={};if(!l.mastered)l.mastered={};if(!l.achievements)l.achievements=[];if(!l.lessonRecords)l.lessonRecords=[];if(![5,10,15,20].includes(l.goal))l.goal=10;
+ if(!l.lessonRatings){
+   l.lessonRatings={};
+   for(const rec of l.lessonRecords){
+     const lesson=LESSONS.find(x=>x.id===rec.lesson);
+     if(!lesson)continue;
+     const actualLength=lessonText(lesson,Number(rec.grade)||5).length;
+     // Full, perfectly corrected passage required; accuracy still reflects every key error.
+     const finishedCorrectly=rec.complete===true&&Number(rec.matched)===actualLength;
+     const n=starsForAccuracy(rec.accuracy,finishedCorrectly);
+     const key=lessonRatingKey(lesson.id,rec.grade);
+     l.lessonRatings[key]=Math.max(n,Number(l.lessonRatings[key])||0);
+     if(n>=1)l.mastered[lesson.id]=true;
+   }
+   save();
+ }
  return l;
 }
 function todayProgress(){const l=learningData();return l.days[todayKey()]||{chars:0,words:0,activeMs:0,lessons:0,tests:0}}
-function lessonMasteredCount(){return Object.values(learningData().mastered).filter(Boolean).length}
+function lessonMasteredCount(grade=Number(profile().grade)||5){const l=learningData();return LESSONS.filter(x=>lessonRating(l,x.id,grade)>0).length}
 function pendingAchievements(l){return AWARDS.filter(a=>!l.achievements.includes(a.id)).filter(a=>{
  if(a.kind==='chars')return l.totals.chars>=a.threshold;
  if(a.kind==='words')return l.totals.words>=a.threshold;
@@ -419,11 +458,37 @@ function renderDaily(){const l=learningData(),d=todayProgress(),pct=Math.min(100
 function renderAwards(){const l=learningData();$('awardSummary').textContent=`${l.achievements.length} of ${AWARDS.length} achievements earned · ${l.totals.chars.toLocaleString()} characters · ${l.totals.words.toLocaleString()} words · ${Math.floor(l.totals.activeMs/60000)} active minutes`;
  $('awardGrid').innerHTML=AWARDS.map(a=>{const got=l.achievements.includes(a.id);let n=a.kind==='chars'?l.totals.chars:a.kind==='words'?l.totals.words:a.kind==='minutes'?Math.floor(l.totals.activeMs/60000):null;return `<div class="award ${got?'award-earned':''}"><div class="award-icon">${got?'★':'◇'}</div><strong>${ESC(a.name)}</strong><div class="small">${ESC(a.detail)}</div>${n!==null?`<small>${Math.min(n,a.threshold).toLocaleString()} / ${a.threshold.toLocaleString()}</small>`:''}</div>`}).join('');}
 let lessonSession=null,selectedLesson=LESSONS[0].id,lessonTicker=null;
-function renderLessons(){const l=learningData(),g=Number(profile().grade)||5,band=gradeBand(g);$('lessonGrade').value=String(g);$('lessonGradeInfo').textContent=`${band.label} · ${LESSONS.length} lessons · All lessons open for practice`;const box=$('lessonLibrary');box.innerHTML=LESSON_UNITS.map(u=>{const ls=LESSONS.filter(x=>x.unit===u.id),passed=ls.filter(x=>l.mastered[x.id]).length;return `<section class="lesson-unit"><div class="unit-heading"><strong>${ESC(u.title)}</strong><span class="small">${passed}/${ls.length} mastered</span></div><p class="small">${ESC(u.description)}</p><div class="lesson-options">${ls.map(x=>`<button type="button" class="lesson-select ${x.id===selectedLesson?'selected':''}" data-lesson-id="${x.id}" aria-pressed="${x.id===selectedLesson}"><span>${l.mastered[x.id]?'✓':'○'}</span> ${ESC(x.title)}</button>`).join('')}</div></section>`}).join('');box.querySelectorAll('[data-lesson-id]').forEach(b=>b.onclick=()=>{if(lessonSession?.typed.length&&!confirm('Leave the current unfinished lesson? It will not be saved.'))return;lessonSession=null;clearInterval(lessonTicker);selectedLesson=b.dataset.lessonId;renderLessons();renderLessonSetup();});$('lessonMasteredTotal').textContent=`${lessonMasteredCount()} / ${LESSONS.length} mastered`;
- if(!lessonSession)renderLessonSetup();}
-function renderLessonSetup(){const lesson=LESSONS.find(x=>x.id===selectedLesson)||LESSONS[0],g=Number(profile().grade)||5;
+function renderLessons(){
+ const l=learningData(),g=Number(profile().grade)||5,band=gradeBand(g);
+ $('lessonGrade').value=String(g);
+ const totalStars=LESSONS.reduce((sum,x)=>sum+lessonRating(l,x.id,g),0);
+ const completed=lessonMasteredCount(g);
+ $('lessonGradeInfo').textContent=`${band.label} · ${LESSONS.length} lessons · All lessons open for practice. Ratings shown for Grade ${g}.`;
+ const box=$('lessonLibrary');
+ box.innerHTML=LESSON_UNITS.map(u=>{
+   const ls=LESSONS.filter(x=>x.unit===u.id);
+   const passed=ls.filter(x=>lessonRating(l,x.id,g)>=1).length;
+   const unitStars=ls.reduce((sum,x)=>sum+lessonRating(l,x.id,g),0);
+   return `<section class="lesson-unit"><div class="unit-heading"><strong>${ESC(u.title)}</strong><span class="small">${passed}/${ls.length} completed · ${unitStars}/${ls.length*3} ★</span></div><p class="small">${ESC(u.description)}</p><div class="lesson-options">${ls.map(x=>{
+     const n=lessonRating(l,x.id,g);
+     return `<button type="button" class="lesson-select ${x.id===selectedLesson?'selected':''}" data-lesson-id="${x.id}" aria-pressed="${x.id===selectedLesson}" aria-label="${ESC(x.title)}. ${n} of 3 stars"><span class="lesson-name">${ESC(x.title)}</span>${starDisplay(n)}</button>`;
+   }).join('')}</div></section>`;
+ }).join('');
+ box.querySelectorAll('[data-lesson-id]').forEach(b=>b.onclick=()=>{
+   if(lessonSession?.typed.length&&!confirm('Leave the current unfinished lesson? It will not be saved.'))return;
+   lessonSession=null;clearInterval(lessonTicker);selectedLesson=b.dataset.lessonId;
+   hideLessonResult();renderLessons();renderLessonSetup();
+ });
+ $('lessonMasteredTotal').textContent=`${totalStars} / ${LESSONS.length*3} stars · ${completed} completed`;
+ if(!lessonSession)renderLessonSetup();
+}
+function renderLessonSetup(){
+ const lesson=LESSONS.find(x=>x.id===selectedLesson)||LESSONS[0],g=Number(profile().grade)||5;
  $('lessonTitle').textContent=lesson.title;$('lessonFocus').textContent='Focus: '+lesson.focus;$('lessonHint').textContent=lesson.hint;
- $('lessonBody').classList.toggle('hidden',!lessonSession);$('lessonSetup').classList.toggle('hidden',!!lessonSession);
+ const rating=lessonRating(learningData(),lesson.id,g);
+ $('lessonState').textContent=`Best: ${rating} / 3 stars`;
+ $('lessonBody').classList.toggle('hidden',!lessonSession);
+ $('lessonSetup').classList.toggle('hidden',!!lessonSession||!$('lessonResult').classList.contains('hidden'));
  if(!lessonSession){$('lessonSample').textContent=lessonText(lesson,g).slice(0,140)+(lessonText(lesson,g).length>140?'…':'');renderKeyboard('f');}
 }
 function beginLesson(){if(lessonSession?.typed.length&&!confirm('Restart this unfinished lesson?'))return;clearInterval(lessonTicker);const p=profile(),lesson=LESSONS.find(x=>x.id===selectedLesson),g=Number(p.grade)||5;
@@ -457,18 +522,50 @@ function processLessonInput(){const s=lessonSession;if(!s){$('lessonInput').valu
  $('lessonState').textContent='Typing · Return to the home-row anchors after each reach.';}
  s.typed=next;$('lessonInput').value=next;$('lessonInput').setSelectionRange(next.length,next.length);renderLessonTyping();if(next===s.target)completeLesson();}
 function cancelLesson(){if(lessonSession?.typed.length&&!confirm('Leave this lesson without saving?'))return;clearInterval(lessonTicker);lessonSession=null;renderLessons();}
-function completeLesson(){const s=lessonSession;if(!s)return;clearInterval(lessonTicker);const p=profile(),l=learningData(),accuracy=s.keystrokes?Math.round(s.correctKeys/s.keystrokes*1000)/10:0,correct=correctLesson(s),passed=s.typed===s.target&&accuracy>=95;
- const before=xpFor(p,s.spriteId),earned=correct<15?0:Math.round((correct/6+Math.min(40,s.activeMs/15000)+(passed?30:0))*(.35+.65*accuracy/100));p.sprites[s.spriteId]=before+earned;
- const rec={date:new Date().toISOString(),lesson:s.lessonId,title:LESSONS.find(x=>x.id===s.lessonId).title,grade:s.grade,accuracy,wpm:Math.round(correct/5/(Math.max(1000,s.activeMs)/60000)),chars:s.keystrokes,words:countWords(s.typed),activeMs:s.activeMs,errors:s.errors,matched:correct,complete:s.typed.length===s.target.length,mastered:passed,xp:earned,sprite:s.spriteId};
- l.lessonRecords.unshift(rec);l.lessonRecords=l.lessonRecords.slice(0,500);if(passed)l.mastered[s.lessonId]=true;
+function completeLesson(){
+ const s=lessonSession;if(!s)return;clearInterval(lessonTicker);
+ const p=profile(),l=learningData(),accuracy=s.keystrokes?Math.round(s.correctKeys/s.keystrokes*1000)/10:0,correct=correctLesson(s);
+ const finishedCorrectly=s.typed===s.target,stars=starsForAccuracy(accuracy,finishedCorrectly),passed=stars>0;
+ const key=lessonRatingKey(s.lessonId,s.grade),oldBest=lessonRating(l,s.lessonId,s.grade);
+ const best=Math.max(oldBest,stars);
+ const before=xpFor(p,s.spriteId),earned=correct<15?0:Math.round((correct/6+Math.min(40,s.activeMs/15000)+stars*10)*(.35+.65*accuracy/100));p.sprites[s.spriteId]=before+earned;
+ const rec={date:new Date().toISOString(),lesson:s.lessonId,title:LESSONS.find(x=>x.id===s.lessonId).title,grade:s.grade,accuracy,wpm:Math.round(correct/5/(Math.max(1000,s.activeMs)/60000)),chars:s.keystrokes,words:countWords(s.typed),activeMs:s.activeMs,errors:s.errors,matched:correct,complete:s.typed.length===s.target.length,mastered:passed,stars,xp:earned,sprite:s.spriteId};
+ l.lessonRecords.unshift(rec);l.lessonRecords=l.lessonRecords.slice(0,500);
+ l.lessonRatings[key]=best;if(passed)l.mastered[s.lessonId]=true;
  const awards=saveLearningActivity({chars:rec.chars,words:rec.words,activeMs:rec.activeMs,mode:'lesson'});
  lessonSession=null;$('lessonInput').disabled=true;renderSide();renderLessons();renderLessonHistory();renderProgress();
- $('lessonResult').classList.remove('hidden');$('lessonResult').innerHTML=`<div class="lesson-result-head"><span class="result-flag">${passed?'★ Lesson mastered':'Lesson completed · Keep practicing'}</span><strong>${rec.wpm} active WPM · ${rec.accuracy}% accuracy · ${mins(rec.activeMs/1000)} active</strong></div><p>${rec.chars.toLocaleString()} characters · ${rec.words} words · ${rec.errors} mistyped keys · +${earned} XP for ${ESC(COMPANIONS.find(c=>c.id===rec.sprite).name)}.</p><p class="small">${passed?'You reached the 95% accuracy mastery mark.':`Mastery needs the complete passage and at least 95% keystroke accuracy. Fixing text is encouraged, but earlier mistyped keystrokes still count.`}</p>${awards.length?`<p class="award-line">New awards: ${awards.map(a=>ESC(a.name)).join(', ')}</p>`:''}<div class="action-row"><button class="primary" id="lessonAgain" type="button">Practice this lesson again</button><button class="secondary" id="lessonNext" type="button">Next lesson</button></div>`;
- $('lessonAgain').onclick=()=>{hideLessonResult();beginLesson()};$('lessonNext').onclick=()=>{const index=LESSONS.findIndex(x=>x.id===selectedLesson);selectedLesson=LESSONS[(index+1)%LESSONS.length].id;hideLessonResult();renderLessons();beginLesson()};notifyAwards(awards);
+ const level=stars===3?'Gold · 3 stars':stars===2?'Silver · 2 stars':stars===1?'Bronze · 1 star':'Not completed · 0 stars';
+ const comment=!finishedCorrectly?'Finish with every character correct to earn stars. Use Backspace to fix any remaining errors.':
+   stars===3?'Outstanding accuracy! You earned the highest rating.':
+   stars===2?'Great work! Reach 95% accuracy to earn all three stars.':
+   stars===1?'Lesson complete! Reach 85% accuracy to earn two stars.':
+   'Keep practicing. Complete the lesson at 75% accuracy or better to earn the first star.';
+ $('lessonSetup').classList.add('hidden');
+ $('lessonState').textContent=`Best: ${best} / 3 stars`;
+ $('lessonResult').classList.remove('hidden');
+ $('lessonResult').innerHTML=`<div class="lesson-result-head"><span class="result-flag">${level}</span><strong>${rec.wpm} active WPM · ${rec.accuracy}% accuracy · ${mins(rec.activeMs/1000)} active</strong></div><div>${starDisplay(stars,true)}</div><p>${ESC(comment)}</p><p class="small">${rec.chars.toLocaleString()} characters · ${rec.words} words · ${rec.errors} mistyped keys · +${earned} XP for ${ESC(COMPANIONS.find(c=>c.id===rec.sprite).name)}.</p><p class="small">Best for Grade ${s.grade}: ${best} of 3 stars${best>stars?' · Your previous higher rating is saved.':best>oldBest&&oldBest>0?' · New personal best!':''}. Backspace corrections count toward finished text; original wrong keystrokes still affect accuracy.</p>${awards.length?`<p class="award-line">New awards: ${awards.map(a=>ESC(a.name)).join(', ')}</p>`:''}<div class="action-row"><button class="primary" id="lessonAgain" type="button">Practice this lesson again</button><button class="secondary" id="lessonNext" type="button">Next lesson</button></div>`;
+ $('lessonAgain').onclick=()=>{hideLessonResult();beginLesson()};
+ $('lessonNext').onclick=()=>{const index=LESSONS.findIndex(x=>x.id===selectedLesson);selectedLesson=LESSONS[(index+1)%LESSONS.length].id;hideLessonResult();renderLessons();beginLesson()};
+ notifyAwards(awards);
 }
-function hideLessonResult(){$('lessonResult').classList.add('hidden')}
-function renderLessonHistory(){const recs=learningData().lessonRecords||[];$('lessonHistory').innerHTML=recs.length?`<div class="table-scroll"><table class="scores"><thead><tr><th>Date</th><th>Lesson</th><th>Grade</th><th>Accuracy</th><th>Active WPM</th><th>Keys</th><th>Time</th><th>Mastered</th></tr></thead><tbody>${recs.slice(0,20).map(r=>`<tr><td>${new Date(r.date).toLocaleDateString()}</td><td>${ESC(r.title)}</td><td>${r.grade}</td><td>${r.accuracy}%</td><td>${r.wpm}</td><td>${r.chars}</td><td>${mins(r.activeMs/1000)}</td><td>${r.mastered?'✓':'Practice'}</td></tr>`).join('')}</tbody></table></div>`:'<p class="small">Your finished lessons will appear here. Test scores are kept separately.</p>'}
-function exportLessonCsv(){const p=profile(),r=learningData().lessonRecords||[],head=['date','lesson','grade','accuracy_percent','active_wpm','keystrokes','words','active_seconds','errors','mastered','xp'];const rows=r.map(x=>[x.date,x.title,x.grade,x.accuracy,x.wpm,x.chars,x.words,Math.round(x.activeMs/1000),x.errors,x.mastered,x.xp]);const csv=[head,...rows].map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='keyquest-lessons.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function hideLessonResult(){
+ $('lessonResult').classList.add('hidden');
+ if(!lessonSession)$('lessonSetup').classList.remove('hidden');
+}
+function renderLessonHistory(){
+ const recs=learningData().lessonRecords||[];
+ $('lessonHistory').innerHTML=recs.length?`<div class="table-scroll"><table class="scores"><thead><tr><th>Date</th><th>Lesson</th><th>Grade</th><th>Accuracy</th><th>Stars earned</th><th>Active WPM</th><th>Keys</th><th>Time</th></tr></thead><tbody>${recs.slice(0,20).map(r=>{
+   const lesson=LESSONS.find(x=>x.id===r.lesson),finished=!!lesson&&r.complete===true&&Number(r.matched)===lessonText(lesson,Number(r.grade)||5).length;
+   const stars=Number.isInteger(r.stars)?r.stars:starsForAccuracy(r.accuracy,finished);
+   return `<tr><td>${new Date(r.date).toLocaleDateString()}</td><td>${ESC(r.title)}</td><td>${r.grade}</td><td>${r.accuracy}%</td><td>${starDisplay(stars)}</td><td>${r.wpm}</td><td>${r.chars}</td><td>${mins(r.activeMs/1000)}</td></tr>`;
+ }).join('')}</tbody></table></div>`:'<p class="small">Your finished lessons will appear here. Test scores are kept separately.</p>';
+}
+function exportLessonCsv(){
+ const r=learningData().lessonRecords||[],head=['date','lesson','grade','accuracy_percent','stars','active_wpm','keystrokes','words','active_seconds','errors','completed_75_percent','xp'];
+ const rows=r.map(x=>{const lesson=LESSONS.find(z=>z.id===x.lesson),finished=!!lesson&&x.complete===true&&Number(x.matched)===lessonText(lesson,Number(x.grade)||5).length;const stars=Number.isInteger(x.stars)?x.stars:starsForAccuracy(x.accuracy,finished);return [x.date,x.title,x.grade,x.accuracy,stars,x.wpm,x.chars,x.words,Math.round(x.activeMs/1000),x.errors,stars>=1,x.xp]});
+ const csv=[head,...rows].map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');
+ const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='keyquest-lessons.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
 // Add lesson/reward credit for completed existing timed and page tests without altering test format or results.
 const keyquestOriginalFinishTest=finishTest;
 finishTest=function(){const s=session;if(!s)return;keyquestOriginalFinishTest();const r=latestRecord;if(!r)return;const won=saveLearningActivity({chars:r.typedChars,words:r.wordsTyped,activeMs:s.activeMs,mode:'test'});if(won.length){$('resultMessage').textContent+=' Awards unlocked: '+won.map(x=>x.name).join(', ')+'.';notifyAwards(won)}renderLessonHistory();};
@@ -477,12 +574,12 @@ navigate=function(view){if(!['lessons','awards'].includes(view)){keyquestOrigina
 const keyquestOriginalRefresh=refresh;
 refresh=function(){keyquestOriginalRefresh();if(lessonSession){clearInterval(lessonTicker);lessonSession=null;}learningData();renderDaily();renderLessons();renderAwards();renderLessonHistory();};
 function bindLessons(){
- $('lessonGrade').onchange=e=>{const g=Number(e.target.value);profile().grade=String(g);$('gradeSelect').value=String(g);save();updateGradeGuidance();renderLessons()};
+ $('lessonGrade').onchange=e=>{const g=Number(e.target.value);if(lessonSession?.typed.length&&!confirm('Changing grade will discard your unfinished lesson. Continue?')){$('lessonGrade').value=profile().grade||'5';return;}if(lessonSession){clearInterval(lessonTicker);lessonSession=null;}profile().grade=String(g);$('gradeSelect').value=String(g);save();updateGradeGuidance();hideLessonResult();renderLessons()};
  $('goalSelect').onchange=e=>{const l=learningData();l.goal=Number(e.target.value);const won=pendingAchievements(l);for(const a of won)l.achievements.push(a.id);save();renderDaily();renderAwards();notifyAwards(won)};
  $('beginLesson').onclick=()=>{hideLessonResult();beginLesson()};$('cancelLesson').onclick=cancelLesson;$('restartLesson').onclick=()=>beginLesson();$('finishLesson').onclick=()=>{if(lessonSession?.typed.length===lessonSession?.target.length)completeLesson()};
  $('lessonInput').addEventListener('input',processLessonInput);$('lessonInput').addEventListener('paste',e=>e.preventDefault());$('lessonInput').addEventListener('drop',e=>e.preventDefault());$('lessonInput').addEventListener('beforeinput',e=>{if(['insertFromPaste','insertFromDrop'].includes(e.inputType))e.preventDefault()});
  $('exportLessonCsv').onclick=exportLessonCsv;
- const existingClear=$('clearProfile').onclick;$('clearProfile').onclick=()=>{if(!confirm('Reset ALL saved test scores, lesson mastery, awards, daily goals, and companion XP for this player? This cannot be undone.'))return;const p=profile();p.records=[];p.sprites={};p.selectedSprite='ember';delete p.learning;save();refresh();};
+ const existingClear=$('clearProfile').onclick;$('clearProfile').onclick=()=>{if(!confirm('Reset ALL saved test scores, lesson stars, awards, daily goals, and companion XP for this player? This cannot be undone.'))return;const p=profile();p.records=[];p.sprites={};p.selectedSprite='ember';delete p.learning;save();refresh();};
  // Keep lessons and tests from being switched during unsaved activity without permission.
  const initialProfileChange=$('profileSelect').onchange;$('profileSelect').onchange=e=>{if(lessonSession?.typed.length&&!confirm('Changing players will discard the unfinished lesson. Continue?')){$('profileSelect').value=state.activeProfile;return;}clearInterval(lessonTicker);lessonSession=null;initialProfileChange(e)};
  const prevSaveProfile=$('saveProfile').onclick;$('saveProfile').onclick=()=>{if(lessonSession?.typed.length&&!confirm('Creating a player will discard the unfinished lesson. Continue?'))return;clearInterval(lessonTicker);lessonSession=null;prevSaveProfile();};
